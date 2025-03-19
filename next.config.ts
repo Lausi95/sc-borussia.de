@@ -1,8 +1,10 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
-  reactStrictMode: true,
+	distDir: "build",
+	output: "export",
+	trailingSlash: true,
+	reactStrictMode: true,
 };
 
 export default nextConfig;
