@@ -1,22 +1,21 @@
-import { getMenu } from "@/contentful";
-import Page, { Menu } from "@/templates/page";
+import { getDataAccess } from "@/datamodel/data-access";
+import Page, { PageProps } from "@/templates/page";
 
-export type HomeProps = {
-  menu: Menu,
-};
+export type HomeProps = PageProps;
 
 export default function Home({ menu }: HomeProps) {
   return (
     <Page title="Home" menu={menu}>
-      :)
+      Willkommen!
     </Page>
   );
 }
 
 export async function getStaticProps() {
+  const dataAccess = await getDataAccess();
   return {
     props: {
-      menu: await getMenu(),
+      menu: await dataAccess.getMenu(),
     },
   };
 }
