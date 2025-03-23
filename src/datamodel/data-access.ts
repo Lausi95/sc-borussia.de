@@ -1,20 +1,21 @@
 import { createContentfulDataAccess } from "./contentful-data-access";
-import type { Department, GenericPage, Menu } from "./model";
+import type { Department, MainPage, Menu } from "./model";
 
-export type DataAccess = {
+export interface DataAccess {
 	getMenu(): Promise<Menu>;
-	getMainMenuPaths(): Promise<string[]>;
-	getGenericPage(slug: string): Promise<GenericPage>;
-	getDepartment(slug: string): Promise<Department>;
+
+	getMainPages(): Promise<MainPage[]>;
+	getMainPage(slug: string): Promise<MainPage>;
+
 	getDepartments(): Promise<Department[]>;
-	getDepartmentPaths(): Promise<string[]>;
-};
+	getDepartment(slug: string): Promise<Department>;
+}
 
 let dataAccessInstance: DataAccess | null = null;
 
-export async function getDataAccess(): Promise<DataAccess> {
+export function getDataAccess(): DataAccess {
 	if (!dataAccessInstance) {
-		dataAccessInstance = await createContentfulDataAccess();
+		dataAccessInstance = createContentfulDataAccess();
 	}
 
 	return dataAccessInstance;

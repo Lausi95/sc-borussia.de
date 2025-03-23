@@ -12,7 +12,7 @@ export default function Home({ menu }: HomeProps) {
 }
 
 export async function getStaticProps() {
-  const dataAccess = await getDataAccess();
+  const dataAccess = getDataAccess();
   return {
     props: {
       menu: await dataAccess.getMenu(),

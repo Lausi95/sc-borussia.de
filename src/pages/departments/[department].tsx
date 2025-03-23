@@ -16,25 +16,25 @@ export default function Abteilung({ menu, department }: AbteilungProps) {
 }
 
 export async function getStaticPaths() {
-  const dataAccess = await getDataAccess();
+  const departments = await getDataAccess().getDepartments();
   return {
-    paths: await dataAccess.getDepartmentPaths(),
+    paths: departments.map(department => department.url),
     fallback: false
   }
 }
 
 export type AbteilungParams = {
   params: {
-    abteilung: string,
+    department: string,
   },
 };
 
 export async function getStaticProps({ params }: AbteilungParams) {
-  const dataAcces = await getDataAccess();
+  const dataAcces = getDataAccess();
   return {
     props: {
       menu: await dataAcces.getMenu(),
-      department: await dataAcces.getDepartment(params.abteilung),
+      department: await dataAcces.getDepartment(params.department),
     },
   };
 }

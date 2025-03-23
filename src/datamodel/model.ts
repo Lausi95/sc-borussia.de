@@ -8,9 +8,11 @@ export type Menu = {
 	items: MenuItem[];
 };
 
-export type GenericPage = {
+export type MainPage = {
 	title: string;
+	url: string;
 	content: string;
+	order: number;
 };
 
 export type Department = {

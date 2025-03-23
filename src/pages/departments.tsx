@@ -21,7 +21,7 @@ export default function Abteilungen({ menu, abteilungen }: AbteilungenProps) {
 }
 
 export async function getStaticProps() {
-  const dataAccess = await getDataAccess();
+  const dataAccess = getDataAccess();
   return {
     props: {
       menu: await dataAccess.getMenu(),
