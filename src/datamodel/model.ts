@@ -20,3 +20,11 @@ export type Department = {
 	url: string;
 	icon: string;
 };
+
+export type BlogEntry = {
+	title: string;
+	url: string;
+	department: Department | null;
+	pinned: boolean;
+	content: string;
+};

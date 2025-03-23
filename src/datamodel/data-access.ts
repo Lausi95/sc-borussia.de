@@ -1,5 +1,5 @@
 import { createContentfulDataAccess } from "./contentful-data-access";
-import type { Department, MainPage, Menu } from "./model";
+import type { BlogEntry, Department, MainPage, Menu } from "./model";
 
 export interface DataAccess {
 	getMenu(): Promise<Menu>;
@@ -9,6 +9,11 @@ export interface DataAccess {
 
 	getDepartments(): Promise<Department[]>;
 	getDepartment(slug: string): Promise<Department>;
+
+	getBlogEntries(): Promise<BlogEntry[]>;
+	getPinnedBlogEntries(): Promise<BlogEntry[]>;
+	getBlogEntriesByDepartment(name: string): Promise<BlogEntry[]>;
+	getBlogEntry(slog: string): Promise<BlogEntry>;
 }
 
 let dataAccessInstance: DataAccess | null = null;

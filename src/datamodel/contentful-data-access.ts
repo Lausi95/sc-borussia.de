@@ -1,8 +1,11 @@
-import { ContentfulClientApi, createClient, type Entry } from "contentful";
+import { type ContentfulClientApi, createClient, type Entry } from "contentful";
 import type { DataAccess } from "./data-access";
-import type { Department, MainPage, Menu, MenuItem } from "./model";
-import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
-import type { Document } from "@contentful/rich-text-types";
+import type { BlogEntry, Department, MainPage, Menu, MenuItem } from "./model";
+import {
+	documentToHtmlString,
+	type Options,
+} from "@contentful/rich-text-html-renderer";
+import { BLOCKS, type Document } from "@contentful/rich-text-types";
 
 // TODO: add in memory caching for efficient use of contentful API
 
@@ -14,6 +17,14 @@ export function createContentfulDataAccess() {
 
 	return new ContentfulDataAccess(contentful);
 }
+
+const HTML_RENDERER_OPTIONS: Partial<Options> = {
+	renderNode: {
+		[BLOCKS.EMBEDDED_ASSET]: (node) => {
+			return `<img src="https://${node.data.target.fields.file.url}" alt="${node.data.target.fields.description}" />`;
+		},
+	},
+};
 
 class ContentfulDataAccess implements DataAccess {
 	private contentful: ContentfulClientApi<undefined>;
@@ -77,11 +88,48 @@ class ContentfulDataAccess implements DataAccess {
 		return this.entryToDepartment(entry);
 	}
 
+	async getBlogEntries(): Promise<BlogEntry[]> {
+		const entries = await this.contentful.getEntries({
+			content_type: "blog-entry",
+		});
+		return entries.items.map(this.entryToBlogEntry);
+	}
+
+	async getPinnedBlogEntries(): Promise<BlogEntry[]> {
+		const entries = await this.contentful.getEntries({
+			content_type: "blog-entry",
+			"fields.pinned": true,
+		});
+		return entries.items.map(this.entryToBlogEntry);
+	}
+
+	async getBlogEntriesByDepartment(
+		departmentName: string,
+	): Promise<BlogEntry[]> {
+		const entries = await this.contentful.getEntries({
+			content_type: "blog-entry",
+			"fields.deparment.name": departmentName,
+		});
+		return entries.items.map(this.entryToBlogEntry);
+	}
+
+	async getBlogEntry(slug: string): Promise<BlogEntry> {
+		const entries = await this.contentful.getEntries({
+			content_type: "blog-entry",
+			"fields.slug": slug,
+		});
+		const entry = this.extractExactlyOneItem(entries.items, "Departments");
+		return this.entryToBlogEntry(entry);
+	}
+
 	private entryToMainPage(entry: Entry): MainPage {
 		return {
 			url: `/${entry.fields.slug}`,
 			title: entry.fields.title as string,
-			content: documentToHtmlString(entry.fields.inhalt as Document),
+			content: documentToHtmlString(
+				entry.fields.inhalt as Document,
+				HTML_RENDERER_OPTIONS,
+			),
 			order: entry.fields.order as number,
 		};
 	}
@@ -90,7 +138,20 @@ class ContentfulDataAccess implements DataAccess {
 		return {
 			name: entry.fields.name as string,
 			url: `/departments/${entry.fields.slug as string}`,
-			icon: "",
+			icon: "", // TODO map icon URL
+		};
+	}
+
+	private entryToBlogEntry(entry: Entry): BlogEntry {
+		return {
+			title: entry.fields.title as string,
+			url: `/blog/${entry.fields.slug as string}`,
+			pinned: entry.fields.pinned as boolean,
+			department: null, // TODO map (nested) department
+			content: documentToHtmlString(
+				entry.fields.content as Document,
+				HTML_RENDERER_OPTIONS,
+			),
 		};
 	}
 
