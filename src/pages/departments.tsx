@@ -11,11 +11,12 @@ export type AbteilungenProps = {
 export default function Abteilungen({ menu, abteilungen }: AbteilungenProps) {
   return (
     <Page title="Abteilungen" menu={menu}>
-      <ul>
-        {abteilungen.map(abteilung => (
-          <li key={abteilung.url}><Link href={abteilung.url}>{abteilung.name}</Link></li>
-        ))}
-      </ul>
+      {abteilungen.map(abteilung => (
+        <Link href={abteilung.url} className="block">
+          <img src={abteilung.icon} />
+          {abteilung.name}
+        </Link>
+      ))}
     </Page>
   );
 }

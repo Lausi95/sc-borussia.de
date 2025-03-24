@@ -15,10 +15,11 @@ const HTML_RENDERER_OPTIONS: Partial<Options> = {
 };
 
 export function entryToDepartment(entry: Entry): Department {
+	const icon = entry.fields.icon as any;
 	return {
 		name: entry.fields.name as string,
 		url: `/departments/${entry.fields.slug as string}`,
-		icon: "", // TODO map icon URL
+		icon: `https://${icon.fields?.file?.url}`,
 	};
 }
 
@@ -39,10 +40,9 @@ export function entryToBlogEntry(entry: Entry): BlogEntry {
 		title: entry.fields.title as string,
 		url: `/blog/${entry.fields.slug as string}`,
 		pinned: entry.fields.pinned as boolean,
-		department:
-			entry.fields.department !== null
-				? entryToDepartment(entry.fields.department as Entry)
-				: null, // TODO map (nested) department
+		department: entry.fields.department
+			? entryToDepartment(entry.fields.department as Entry)
+			: null, // TODO map (nested) department
 		content: documentToHtmlString(
 			entry.fields.content as Document,
 			HTML_RENDERER_OPTIONS,

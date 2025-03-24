@@ -43,6 +43,11 @@ class ContentfulDataAccess implements DataAccess {
 					href: "/departments",
 					order: 0,
 				},
+				{
+					title: "Blog",
+					href: "/blog",
+					order: 0,
+				},
 				...menuItems,
 			],
 		};
