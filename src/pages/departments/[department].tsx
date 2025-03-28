@@ -3,9 +3,9 @@ import { Department, Menu } from "@/datamodel/model";
 import Page from "@/templates/page";
 
 export type AbteilungProps = {
-  menu: Menu,
-  department: Department,
-}
+  menu: Menu;
+  department: Department;
+};
 
 export default function Abteilung({ menu, department }: AbteilungProps) {
   return (
@@ -17,7 +17,7 @@ export default function Abteilung({ menu, department }: AbteilungProps) {
 
 export async function getStaticPaths() {
   const departments = await getDataAccess().getDepartments();
-  const paths = departments.map(department => ({
+  const paths = departments.map((department) => ({
     params: {
       department: department.slug,
     },
@@ -25,14 +25,14 @@ export async function getStaticPaths() {
 
   return {
     paths: paths,
-    fallback: false
-  }
+    fallback: false,
+  };
 }
 
 export type AbteilungParams = {
   params: {
-    department: string,
-  },
+    department: string;
+  };
 };
 
 export async function getStaticProps({ params }: AbteilungParams) {

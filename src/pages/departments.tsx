@@ -4,14 +4,14 @@ import Page from "@/templates/page";
 import Link from "next/link";
 
 export type AbteilungenProps = {
-  menu: Menu,
-  abteilungen: [Department],
+  menu: Menu;
+  abteilungen: [Department];
 };
 
 export default function Abteilungen({ menu, abteilungen }: AbteilungenProps) {
   return (
     <Page title="Abteilungen" menu={menu}>
-      {abteilungen.map(abteilung => (
+      {abteilungen.map((abteilung) => (
         <Link href={`/departments/${abteilung.slug}`} className="block">
           <img src={abteilung.icon} />
           {abteilung.name}

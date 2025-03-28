@@ -3,9 +3,9 @@ import { MainPage, Menu } from "@/datamodel/model";
 import Page from "@/templates/page";
 
 export type MainPageProps = {
-  menu: Menu,
-  page: MainPage,
-}
+  menu: Menu;
+  page: MainPage;
+};
 
 export default function _MainPage({ menu, page }: MainPageProps) {
   return (
@@ -17,7 +17,7 @@ export default function _MainPage({ menu, page }: MainPageProps) {
 
 export async function getStaticPaths() {
   const mainPages = await getDataAccess().getMainPages();
-  const paths = mainPages.map(mainPage => ({
+  const paths = mainPages.map((mainPage) => ({
     params: {
       mainPageId: mainPage.slug,
     },
@@ -31,8 +31,8 @@ export async function getStaticPaths() {
 
 export type MainPageParams = {
   params: {
-    mainPageId: string,
-  },
+    mainPageId: string;
+  };
 };
 
 export async function getStaticProps({ params }: MainPageParams) {
@@ -44,4 +44,3 @@ export async function getStaticProps({ params }: MainPageParams) {
     },
   };
 }
-
