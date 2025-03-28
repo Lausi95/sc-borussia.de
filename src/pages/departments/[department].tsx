@@ -1,6 +1,6 @@
 import { getDataAccess } from "@/datamodel/data-access";
 import { Department, Menu } from "@/datamodel/model";
-import Page from "@/templates/page";
+import Page from "@/components/Page";
 
 export type AbteilungProps = {
   menu: Menu;

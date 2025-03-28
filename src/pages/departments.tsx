@@ -1,6 +1,6 @@
 import { getDataAccess } from "@/datamodel/data-access";
 import { Department, Menu } from "@/datamodel/model";
-import Page from "@/templates/page";
+import Page from "@/components/Page";
 import Link from "next/link";
 
 export type AbteilungenProps = {
@@ -13,7 +13,7 @@ export default function Abteilungen({ menu, abteilungen }: AbteilungenProps) {
     <Page title="Abteilungen" menu={menu}>
       {abteilungen.map((abteilung) => (
         <Link href={`/departments/${abteilung.slug}`} className="block">
-          <img src={abteilung.icon} />
+          <img alt={"departement-logo"} src={abteilung.icon} />
           {abteilung.name}
         </Link>
       ))}

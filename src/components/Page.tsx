@@ -1,5 +1,6 @@
 import { Menu } from "@/datamodel/model";
 import Link from "next/link";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 
 export type PageProps = {
   title: string;
@@ -14,7 +15,7 @@ export default function Page({ title, children, menu }: PageProps) {
         <div className="w-4xl p-4">
           <div className="flex flex-row gap-4 items-center pb-4">
             <Link href="/">
-              <img className="h-24" src="/logo.png" />
+              <img alt={"logo"} className="h-24" src="/logo.png" />
             </Link>
             <div>
               <h1 className="text-lg font-bold">Borussia Friedrichsfelde 1920 e.V.</h1>
@@ -32,7 +33,10 @@ export default function Page({ title, children, menu }: PageProps) {
       </div>
 
       <div className="flex w-full justify-center">
-        <div className="w-4xl p-4">{children}</div>
+        <div className="w-4xl p-4">
+          <Breadcrumbs />
+          {children}
+        </div>
       </div>
     </div>
   );

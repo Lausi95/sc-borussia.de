@@ -1,6 +1,6 @@
 import { getDataAccess } from "@/datamodel/data-access";
 import { BlogEntry } from "@/datamodel/model";
-import Page, { PageProps } from "@/templates/page";
+import Page, { PageProps } from "@/components/Page";
 import Link from "next/link";
 
 export type BlogProps = PageProps & {

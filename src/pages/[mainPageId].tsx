@@ -1,6 +1,6 @@
 import { getDataAccess } from "@/datamodel/data-access";
 import { MainPage, Menu } from "@/datamodel/model";
-import Page from "@/templates/page";
+import Page from "@/components/Page";
 
 export type MainPageProps = {
   menu: Menu;

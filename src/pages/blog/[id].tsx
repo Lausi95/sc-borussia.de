@@ -1,5 +1,5 @@
 import { getDataAccess } from "@/datamodel/data-access";
-import Page, { PageProps } from "@/templates/page";
+import Page, { PageProps } from "@/components/Page";
 import { BlogEntry } from "@/datamodel/model";
 import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from "next";
 

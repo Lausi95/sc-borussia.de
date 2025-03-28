@@ -1,6 +1,6 @@
 import { getDataAccess } from "@/datamodel/data-access";
 import { BlogEntry } from "@/datamodel/model";
-import Page, { PageProps } from "@/templates/page";
+import Page, { PageProps } from "@/components/Page";
 
 export type HomeProps = PageProps & {
   pinnedBlogEntries: BlogEntry[];
