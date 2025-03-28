@@ -10,20 +10,20 @@ export type Menu = {
 
 export type MainPage = {
 	title: string;
-	url: string;
+	slug: string;
 	content: string;
 	order: number;
 };
 
 export type Department = {
 	name: string;
-	url: string;
+	slug: string;
 	icon: string;
 };
 
 export type BlogEntry = {
 	title: string;
-	url: string;
+	slug: string;
 	department: Department | null;
 	pinned: boolean;
 	content: string;

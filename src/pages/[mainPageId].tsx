@@ -17,15 +17,21 @@ export default function _MainPage({ menu, page }: MainPageProps) {
 
 export async function getStaticPaths() {
   const mainPages = await getDataAccess().getMainPages();
+  const paths = mainPages.map(mainPage => ({
+    params: {
+      mainPageId: mainPage.slug,
+    },
+  }));
+
   return {
-    paths: mainPages.map(mainPage => mainPage.url),
+    paths,
     fallback: false,
   };
 }
 
 export type MainPageParams = {
   params: {
-    mainPageSlug: string,
+    mainPageId: string,
   },
 };
 
@@ -34,7 +40,7 @@ export async function getStaticProps({ params }: MainPageParams) {
   return {
     props: {
       menu: await dataAccess.getMenu(),
-      page: await dataAccess.getMainPage(params.mainPageSlug),
+      page: await dataAccess.getMainPage(params.mainPageId),
     },
   };
 }

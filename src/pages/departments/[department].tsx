@@ -17,8 +17,14 @@ export default function Abteilung({ menu, department }: AbteilungProps) {
 
 export async function getStaticPaths() {
   const departments = await getDataAccess().getDepartments();
+  const paths = departments.map(department => ({
+    params: {
+      department: department.slug,
+    },
+  }));
+
   return {
-    paths: departments.map(department => department.url),
+    paths: paths,
     fallback: false
   }
 }

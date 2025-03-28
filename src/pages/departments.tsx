@@ -12,7 +12,7 @@ export default function Abteilungen({ menu, abteilungen }: AbteilungenProps) {
   return (
     <Page title="Abteilungen" menu={menu}>
       {abteilungen.map(abteilung => (
-        <Link href={abteilung.url} className="block">
+        <Link href={`/departments/${abteilung.slug}`} className="block">
           <img src={abteilung.icon} />
           {abteilung.name}
         </Link>

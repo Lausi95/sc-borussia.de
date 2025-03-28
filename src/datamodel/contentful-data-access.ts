@@ -31,7 +31,7 @@ class ContentfulDataAccess implements DataAccess {
 		const menuItems: MenuItem[] = mainPages
 			.map((item) => ({
 				title: item.title,
-				href: item.url,
+				href: `/${item.slug}`,
 				order: item.order,
 			}))
 			.sort((a, b) => a.order - b.order);

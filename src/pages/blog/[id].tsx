@@ -37,14 +37,11 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const dataAccess = getDataAccess();
   const blogEntries = await dataAccess.getBlogEntries();
 
-  const paths = blogEntries.map((entry) => {
-    // Remove '/blog/' prefix if it's there
-    const cleanId = entry.url.replace(/^\/blog\//, "");
-
-    return {
-      params: { id: cleanId },
-    };
-  });
+  const paths = blogEntries.map((entry) => ({
+    params: {
+      id: entry.slug,
+    },
+  }));
 
   return {
     paths,

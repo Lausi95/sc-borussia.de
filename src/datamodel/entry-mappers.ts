@@ -18,14 +18,14 @@ export function entryToDepartment(entry: Entry): Department {
 	const icon = entry.fields.icon as any;
 	return {
 		name: entry.fields.name as string,
-		url: `/departments/${entry.fields.slug as string}`,
+		slug: `${entry.fields.slug}`,
 		icon: `https://${icon.fields?.file?.url}`,
 	};
 }
 
 export function entryToMainPage(entry: Entry): MainPage {
 	return {
-		url: `/${entry.fields.slug}`,
+		slug: `${entry.fields.slug}`,
 		title: entry.fields.title as string,
 		content: documentToHtmlString(
 			entry.fields.inhalt as Document,
@@ -38,7 +38,7 @@ export function entryToMainPage(entry: Entry): MainPage {
 export function entryToBlogEntry(entry: Entry): BlogEntry {
 	return {
 		title: entry.fields.title as string,
-		url: `/blog/${entry.fields.slug as string}`,
+		slug: `${entry.fields.slug as string}`,
 		pinned: entry.fields.pinned as boolean,
 		department: entry.fields.department
 			? entryToDepartment(entry.fields.department as Entry)

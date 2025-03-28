@@ -12,7 +12,7 @@ export default function Blog({ menu, blogEntries }: BlogProps) {
     <Page menu={menu} title="Blog">
       <div className="grid pt-1 gap-6 md:grid-cols-2">
         {blogEntries.map((entry) => (
-          <Link key={entry.url} href={entry.url} className="block shadow rounded overflow-hidden">
+          <Link key={entry.slug} href={`/blog/${entry.slug}`} className="block shadow rounded overflow-hidden">
             <div className="bg-[url(/default-blog-image.webp)] rounded-t bg-cover bg-center h-20"></div>
             <div className="flex justify-between w-full p-2">
               <div className="font-bold">{entry.title}</div>
